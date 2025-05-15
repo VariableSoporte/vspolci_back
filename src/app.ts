@@ -40,6 +40,6 @@ app.listen(PORT, () => {
     `Aplicacion de express esta corriendo en el puerto http://localhost:${PORT}`
   );
   console.log(
-    `probando dotenv: ${process.env.USER}`
+    `probando dotenv: ${process.env.DB_USER}`
   );
 });

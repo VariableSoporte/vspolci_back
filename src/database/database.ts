@@ -3,10 +3,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config: ConnectionOptions = {
-    host: process.env.HOST ,
-    user: process.env.USER ,
-    password: process.env.PASSWORD ,
-    database: process.env.BD ,
+    host: process.env.DB_HOST ,
+    user: process.env.DB_USER ,
+    password: process.env.DB_PASSWORD ,
+    database: process.env.DB_BD ,
     connectionLimit: 10,
     waitForConnections: true,
     queueLimit: 0
