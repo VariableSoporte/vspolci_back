@@ -5,6 +5,8 @@ import db from "./database/database";
 import { ExpressUsuarioRutas } from "./usuario/infraestructura/expressUsuarioRutas";
 import { ExpressBodegaRutas } from "./bodega/infraestructura/expressBodegaRutas";
 import { ExpressInsumoRutas } from "./insumo/infraestructura/expressInsumoRutas";
+import { ExpressInventarioRutas } from "./inventario/infraestructura/expressInventarioRutas";
+import { ExpressReporteRutas } from "./reporte/infraestructura/expressReporteRutas";
 
 dotenv.config();
 
@@ -17,7 +19,7 @@ app.use(morgan('dev'));
 app.use(helmet());
 
 app.use( cors ({
-  origin: "http://localhost:5173",
+  origin: process.env.CORS,
   credentials: true
 }));
 
@@ -25,6 +27,8 @@ app.use(express.json());
 app.use(ExpressUsuarioRutas);
 app.use(ExpressBodegaRutas);
 app.use(ExpressInsumoRutas);
+app.use(ExpressInventarioRutas);
+app.use(ExpressReporteRutas);
 
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {

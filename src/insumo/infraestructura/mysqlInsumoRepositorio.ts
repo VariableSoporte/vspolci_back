@@ -12,6 +12,7 @@ import {
   InsumoCodigo,
   InsumoDescripcion,
   InsumoId,
+  InsumoKardex,
   InsumoMedida,
   InsumoNombre,
   InsumoRepositorio
@@ -27,6 +28,7 @@ type InsumoMySQL = {
   codigo: string;
   activo: number;
 };
+
 
 export class MySQLInsumoRepositorio implements InsumoRepositorio {
 
@@ -123,4 +125,40 @@ export class MySQLInsumoRepositorio implements InsumoRepositorio {
 
   }
 
+  async traerPorBodega(id_bodega_per: number): Promise<InsumoKardex[]> {
+    const query =`select k.id_kardex, k.id_producto_per, p.nombre, p.descripcion, p.categoria, k.cantidad, k.estante, k.fila
+                  from kardex k 
+                  INNER JOIN producto p ON p.id_producto = k.id_producto_per
+                  INNER JOIN bodega b ON k.id_bodega_per = b.id_bodega
+                  WHERE b.id_bodega = ?`;
+    const values = [id_bodega_per];
+
+    //const rows = await this.cliente.query<RowDataPacket[]>(query, values); // -> se usa rows[0][0]
+    const rows:any = await bd.query<RowDataPacket[]>(query, values); // -> se usa solo rows[0]
+
+    const insumo = rows.map(
+      (u:InsumoKardex) =>
+        new InsumoKardex (
+          u.id_kardex,
+          u.id_producto_per,
+          u.nombre,
+          u.descripcion,
+          u.categoria,
+          u.cantidad,
+          u.estante,
+          u.fila
+        )
+    );
+
+    return insumo;
+  }
+  async actualizarKardex(id_kardex: number, estante: string, fila: number): Promise<void> {
+    const query = "UPDATE kardex SET estante = ?, fila = ? WHERE id_kardex = ?";
+    const values = [
+      estante,
+      fila,
+      id_kardex
+    ]
+    await bd.query<RowDataPacket[]>(query, values);
+  }
 }

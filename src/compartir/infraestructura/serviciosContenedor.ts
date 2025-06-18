@@ -1,16 +1,22 @@
 //import { RepositorioUsuarioMemoria } from "src/lib/usuario/infraestructura/repositorioUsuarioMemoria";
-import { MySQLUsuarioRepositorio } from "../../usuario/infraestructura/mysqlUsuarioRepositorio";
-import { UsuarioCrear, UsuarioEditar, UsuarioEliminar, UsuarioTraerPorId, UsuarioTraerTodo, UsuarioAutenticar } from "../../usuario/aplicacion";
-import { BodegaTraerTodo, BodegaTraerPorId, BodegaCrear, BodegaEditar, BodegaEliminar } from "../../bodega/aplicacion";
+import { ReporteInsumos } from "reporte/dominio";
+import { BodegaCrear, BodegaEditar, BodegaEliminar, BodegaTraerPorId, BodegaTraerTodo } from "../../bodega/aplicacion";
 import { MySQLBodegaRepositorio } from "../../bodega/infraestructura/mysqlBodegaRepositorio";
+import { InsumoActualizarKardex, InsumoCrear, InsumoEditar, InsumoEliminar, InsumoTraerPorBodega, InsumoTraerPorId, InsumoTraerTodo } from "../../insumo/aplicacion";
 import { MySQLInsumoRepositorio } from "../../insumo/infraestructura/mysqlInsumoRepositorio";
-import { InsumoCrear, InsumoEditar, InsumoEliminar, InsumoTraerPorId, InsumoTraerTodo } from "../../insumo/aplicacion";
+import { InventarioAprobarSolicitudYGenerarMovimientos, InventarioConsultarEstados, InventarioConsultarPedidos, InventarioEnviarInventario, InventarioEnviarSolicitud, InventarioTraerTodo } from "../../inventario/aplicacion";
+import { MySQLInventarioRepositorio } from "../../inventario/infraestructura/mysqlInventarioRepositorio";
+import { UsuarioAutenticar, UsuarioCrear, UsuarioEditar, UsuarioEliminar, UsuarioTraerPorId, UsuarioTraerTodo } from "../../usuario/aplicacion";
+import { MySQLUsuarioRepositorio } from "../../usuario/infraestructura/mysqlUsuarioRepositorio";
+import { MySQLReporteRepositorio } from "../../reporte/infraestructura/mysqlReporteRepositorio";
+import { ReporteReporteEntregas, ReporteReporteInsumos, ReporteReporteSalida, ReporteReporteSalidasBodegas } from "../../reporte/aplicacion";
 
 
-//const usuarioReporitorio = new MySQLUsuarioRepositorio();
 const usuarioReporitorio = new MySQLUsuarioRepositorio();
 const bodegaRepositorio = new MySQLBodegaRepositorio();
 const insumoRepositorio = new MySQLInsumoRepositorio();
+const inventarioRepositorio = new MySQLInventarioRepositorio();
+const reporteRepositorio = new MySQLReporteRepositorio();
 //const usuarioReporitorio = new RepositorioUsuarioMemoria();
 
 export const ServiciosContenedor = {
@@ -34,6 +40,22 @@ export const ServiciosContenedor = {
         traerPorId: new InsumoTraerPorId(insumoRepositorio),
         crear: new InsumoCrear(insumoRepositorio),
         editar: new InsumoEditar(insumoRepositorio),
-        eliminar: new InsumoEliminar(insumoRepositorio)
+        eliminar: new InsumoEliminar(insumoRepositorio),
+        traerPorBodega: new InsumoTraerPorBodega(insumoRepositorio),
+        actualizarKArdex: new InsumoActualizarKardex(insumoRepositorio)
+    },
+    inventario : {
+        traerTodo: new InventarioTraerTodo(inventarioRepositorio),
+        enviarInventario: new InventarioEnviarInventario(inventarioRepositorio),
+        enviarSolicitud: new InventarioEnviarSolicitud(inventarioRepositorio),
+        consultarEstados: new InventarioConsultarEstados(inventarioRepositorio),
+        consultarPedidos: new InventarioConsultarPedidos(inventarioRepositorio),
+        aprobarSolicitudYGenerarMovimientos: new InventarioAprobarSolicitudYGenerarMovimientos(inventarioRepositorio)
+    },
+    reporte : {
+        reporteInsumos: new ReporteReporteInsumos(reporteRepositorio),
+        reporteSalida: new ReporteReporteSalida(reporteRepositorio),
+        reporteSalidasBodegas: new ReporteReporteSalidasBodegas(reporteRepositorio),
+        reporteEntregas: new ReporteReporteEntregas(reporteRepositorio)
     }
 }

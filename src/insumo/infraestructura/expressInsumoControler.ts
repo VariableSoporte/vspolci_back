@@ -154,4 +154,57 @@ export class ExpressInsumoControler {
       }
     }
   }
+
+  async traerPorBodega (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any>{
+     try {
+      const id_bodega_per: number = parseInt(req.params.id_bodega_per);
+      const insumo = await ServiciosContenedor.insumo.traerPorBodega.handle(id_bodega_per);
+      console.log("insumo",insumo)
+      return res.json(insumo.map(e=>e.datoPrimitivo())).status(200);
+    } catch (error) {
+      if (error instanceof InsumoNoEncontradoError) {
+        return res.status(404).json({ message: error.message });
+      }
+      throw error;
+    }
+  }
+
+  async actualizarKardex (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any>{
+    try {
+      const {
+        id_kardex,
+        estante,
+        fila
+      } = req.body as {
+        id_kardex: number,
+        estante: string,
+        fila: number
+      };
+      await ServiciosContenedor.insumo.actualizarKArdex.handle(
+        id_kardex,
+        estante,
+        fila
+      );
+      return res.status(200).json("Kardex actualizada");
+    } catch (error) {
+      if (error instanceof InsumoNoEncontradoError) {
+        return res.status(404).json({ message: error.message });
+      } else {
+        return res.status(401).json({
+          message:
+            error instanceof Error
+              ? error.message
+              : "Error desconocido en el controlador de express actualizar kardex",
+        });
+      }
+    }
+  }
 }

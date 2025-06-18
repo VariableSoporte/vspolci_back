@@ -54,14 +54,14 @@ CREATE TABLE `detalle_solicitud` (
   `id_producto_per` int DEFAULT NULL,
   `cantidad` int DEFAULT NULL,
   `motivo` varchar(255) DEFAULT NULL,
-  `detalle_solicitudcol` varchar(45) DEFAULT NULL,
+  `detalle_solicitudcol` varchar(255) DEFAULT NULL,
   `cantidad_enviada` int DEFAULT NULL,
   PRIMARY KEY (`id_detalle_solicitud`),
   KEY `fk_id_solicitud_detalle_idx` (`id_solicitud_per`),
   KEY `fk_id_producto_detalle_idx` (`id_producto_per`),
   CONSTRAINT `fk_id_producto_detalle` FOREIGN KEY (`id_producto_per`) REFERENCES `producto` (`id_producto`),
   CONSTRAINT `fk_id_solicitud_detalle` FOREIGN KEY (`id_solicitud_per`) REFERENCES `solicitud` (`id_solicitud`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +70,7 @@ CREATE TABLE `detalle_solicitud` (
 
 LOCK TABLES `detalle_solicitud` WRITE;
 /*!40000 ALTER TABLE `detalle_solicitud` DISABLE KEYS */;
+INSERT INTO `detalle_solicitud` VALUES (3,4,2,10,'Uso interno','Detalles extra',10),(4,4,12,5,'Mantenimiento','Repuesto urgente',3),(5,5,1,12,'motivo uno','',0),(6,5,2,8,'motivo dos','',0),(7,6,12,19,'mot ejem','',0),(8,6,2,4,'moti','',0),(9,7,1,1,'mot','',0),(10,8,12,1,'motivo pedido','',0);
 /*!40000 ALTER TABLE `detalle_solicitud` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +102,7 @@ CREATE TABLE `entrada` (
 
 LOCK TABLES `entrada` WRITE;
 /*!40000 ALTER TABLE `entrada` DISABLE KEYS */;
-INSERT INTO `entrada` VALUES (1,1,'OFI001',500,'2024-12-11','2030-12-11',500,'Luis Fernando'),(2,2,'OFI002',500,'2024-12-11','2040-12-11',500,'Luis Zerna');
+INSERT INTO `entrada` VALUES (1,1,'OFI001',500,'2024-12-11','2030-12-11',480,'Luis Fernando'),(2,2,'OFI002',500,'2024-12-11','2040-12-11',475,'Luis Zerna');
 /*!40000 ALTER TABLE `entrada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +134,7 @@ CREATE TABLE `kardex` (
 
 LOCK TABLES `kardex` WRITE;
 /*!40000 ALTER TABLE `kardex` DISABLE KEYS */;
-INSERT INTO `kardex` VALUES (1,1,2,500,'A',1),(2,2,2,500,'A',2);
+INSERT INTO `kardex` VALUES (1,1,2,480,'A',1),(2,2,2,475,'A',2);
 /*!40000 ALTER TABLE `kardex` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,7 +195,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'Hojas papel A4','Hojas de papel A4 para impresiones',100,'unidad','Oficina','A010001',1),(2,'Hojas papel A1','Hojas de papel A3 para impresiones',50,'unidad','Oficina','A020001',1),(12,'ejemp','asd',10,'unidad','oficina','b002',1),(13,'eje alert','alertass',50,'unidad','oficina','a002',1);
+INSERT INTO `producto` VALUES (1,'Hojas papel A4','Hojas de papel A4 para impresiones',100,'unidad','Oficina','A010001',1),(2,'Hojas papel A1','Hojas de papel A3 para impresiones',50,'unidad','Oficina','A020001',1),(12,'ejemp','asd',10,'unidad','oficina','b002',1),(13,'eje alert','alertass',50,'unidad','oficina','a002',0);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +221,7 @@ CREATE TABLE `salida` (
   KEY `fk_entrada_salida_idx` (`id_entrada_per`),
   CONSTRAINT `fk_entrada_salida` FOREIGN KEY (`id_entrada_per`) REFERENCES `entrada` (`id_entrada`),
   CONSTRAINT `fk_kardex_salida` FOREIGN KEY (`id_kardex_per`) REFERENCES `kardex` (`id_kardex`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,6 +230,7 @@ CREATE TABLE `salida` (
 
 LOCK TABLES `salida` WRITE;
 /*!40000 ALTER TABLE `salida` DISABLE KEYS */;
+INSERT INTO `salida` VALUES (1,1,'001',20,'2025-05-24',1,'Solicitud ejemplo','contabilidad','dispo ejemplo'),(2,2,'002',25,'2025-05-24',2,'Solicita ejemplo','TI','Luis Fernando Zerna Ramos');
 /*!40000 ALTER TABLE `salida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,7 +259,7 @@ CREATE TABLE `solicitud` (
   CONSTRAINT `fk_id_bodega_sol_solicitud` FOREIGN KEY (`id_bodega_sol`) REFERENCES `bodega` (`id_bodega`),
   CONSTRAINT `fk_id_usuario_apr_solicitud` FOREIGN KEY (`id_usuario_aprueba`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `fk_id_usuario_sol_solicitud` FOREIGN KEY (`id_usuario_sol`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -266,6 +268,7 @@ CREATE TABLE `solicitud` (
 
 LOCK TABLES `solicitud` WRITE;
 /*!40000 ALTER TABLE `solicitud` DISABLE KEYS */;
+INSERT INTO `solicitud` VALUES (4,2,1,'2025-05-27','2025-06-04',1,1,3),(5,2,2,'2025-05-28',NULL,0,1,NULL),(6,2,6,'2025-05-29',NULL,0,1,NULL),(7,2,6,'2025-05-29',NULL,0,1,NULL),(8,2,6,'2025-06-05',NULL,0,1,NULL);
 /*!40000 ALTER TABLE `solicitud` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -749,6 +752,130 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `enviar_solicitud` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `enviar_solicitud`(
+	IN p_id_bodega_per INT,
+    IN p_id_bodega_sol INT,
+    IN p_fecha_emision DATE,
+    IN p_id_usuario_sol INT,
+    IN p_pedido_json JSON
+)
+BEGIN
+  DECLARE v_id_solicitud INT;
+  DECLARE i INT DEFAULT 0;
+  DECLARE total_items INT;
+
+  -- Manejo de errores
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    ROLLBACK;
+    -- SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error al registrar la solicitud.';
+  END;
+
+  START TRANSACTION;
+
+  -- 1. Crear cabecera solicitud
+  INSERT INTO solicitud (
+    id_bodega_per,
+    id_bodega_sol,
+    fecha_emision,
+    fecha_aprobado,
+    aprovado,
+    id_usuario_sol,
+    id_usuario_aprueba
+  ) VALUES (
+    p_id_bodega_per,
+    p_id_bodega_sol,
+    p_fecha_emision,
+    NULL,
+    0,
+    p_id_usuario_sol,
+    NULL
+  );
+
+  SET v_id_solicitud = LAST_INSERT_ID();
+  SET total_items = JSON_LENGTH(p_pedido_json);
+
+  -- 2. Insertar detalles
+  WHILE i < total_items DO
+    INSERT INTO detalle_solicitud (
+      id_solicitud_per,
+      id_producto_per,
+      cantidad,
+      motivo,
+      detalle_solicitudcol,
+      cantidad_enviada
+    ) VALUES (
+      v_id_solicitud,
+      CAST(JSON_UNQUOTE(JSON_EXTRACT(p_pedido_json, CONCAT('$[', i, '].id_producto_per'))) AS UNSIGNED),
+      CAST(JSON_UNQUOTE(JSON_EXTRACT(p_pedido_json, CONCAT('$[', i, '].cantidad'))) AS UNSIGNED),
+      JSON_UNQUOTE(JSON_EXTRACT(p_pedido_json, CONCAT('$[', i, '].motivo'))),
+      JSON_UNQUOTE(JSON_EXTRACT(p_pedido_json, CONCAT('$[', i, '].detalle_solicitud'))),
+      0
+    );
+
+    SET i = i + 1;
+  END WHILE;
+
+  COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `listado_de_estados` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listado_de_estados`(
+	IN p_id_bodega INT
+)
+BEGIN
+SELECT
+    s.id_solicitud,
+    b.nombre AS nombre_bodega,
+    s.fecha_emision,
+    s.fecha_aprobado,
+    CONCAT(u1.nombres, ' ', u1.apellidos) AS usuario_solicitante,
+    CONCAT(u2.nombres, ' ', u2.apellidos) AS usuario_aprobador,
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_producto_per', ds.id_producto_per,
+            'nombre_producto', p.nombre,
+            'cantidad', ds.cantidad,
+            'cantidad_enviada', ds.cantidad_enviada
+        )
+    ) AS productos
+FROM solicitud s
+JOIN bodega b ON b.id_bodega = s.id_bodega_sol
+LEFT JOIN usuario u1 ON u1.id_usuario = s.id_usuario_sol
+LEFT JOIN usuario u2 ON u2.id_usuario = s.id_usuario_aprueba
+JOIN detalle_solicitud ds ON ds.id_solicitud_per = s.id_solicitud
+JOIN producto p ON p.id_producto = ds.id_producto_per
+WHERE s.id_bodega_per = p_id_bodega
+GROUP BY s.id_solicitud, b.nombre, s.fecha_emision, s.fecha_aprobado, u1.nombres, u1.apellidos, u2.nombres, u2.apellidos;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `login` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -779,6 +906,108 @@ BEGIN
         personal p ON u.id_usuario = p.id_usuario_per
     WHERE 
         u.correo = p_correo AND u.contrasenia = p_contrasenia;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `registrar_salida_insumo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrar_salida_insumo`(
+	IN p_id_kardex INT,
+    IN p_cantidad INT,
+    IN p_numero_informe VARCHAR(45),
+    IN p_nombre_solicitante VARCHAR(255),
+    IN p_area VARCHAR(255),
+    IN p_disposicion_entrega VARCHAR(255)
+)
+BEGIN
+	DECLARE v_restante INT;
+    DECLARE v_entrada_id INT;
+    DECLARE v_existencia INT;
+    DECLARE v_consumir INT;
+    DECLARE done INT DEFAULT FALSE;
+
+    -- Cursor para recorrer entradas disponibles
+    DECLARE cur CURSOR FOR
+        SELECT id_entrada, existencia
+        FROM entrada
+        WHERE id_kardex_per = p_id_kardex AND existencia > 0
+        ORDER BY id_entrada ASC;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    START TRANSACTION;
+
+    SET v_restante = p_cantidad;
+
+    OPEN cur;
+
+    leer_loop: LOOP
+        FETCH cur INTO v_entrada_id, v_existencia;
+        IF done THEN
+            LEAVE leer_loop;
+        END IF;
+
+        IF v_restante <= 0 THEN
+            LEAVE leer_loop;
+        END IF;
+
+        -- Determinar cuánto consumir de esta entrada
+        SET v_consumir = LEAST(v_restante, v_existencia);
+
+        -- Insertar en salida
+        INSERT INTO salida (
+            id_kardex_per,
+            numero_informe,
+            cantidad,
+            fecha_salida,
+            id_entrada_per,
+            nombre_solicitante,
+            area,
+            disposicion_entrega
+        )
+        VALUES (
+            p_id_kardex,
+            p_numero_informe,
+            v_consumir,
+            CURRENT_DATE,
+            v_entrada_id,
+            p_nombre_solicitante,
+            p_area,
+            p_disposicion_entrega
+        );
+
+        -- Actualizar existencia en entrada
+        UPDATE entrada
+        SET existencia = existencia - v_consumir
+        WHERE id_entrada = v_entrada_id;
+
+        -- Restar del restante
+        SET v_restante = v_restante - v_consumir;
+    END LOOP;
+
+    CLOSE cur;
+
+    -- Recalcular y actualizar cantidad total en kardex
+    UPDATE kardex
+    SET cantidad = (
+        SELECT IFNULL(SUM(existencia), 0)
+        FROM entrada
+        WHERE id_kardex_per = p_id_kardex
+    )
+    WHERE id_kardex = p_id_kardex;
+
+    COMMIT;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -905,6 +1134,44 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `traer_todo_inventario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `traer_todo_inventario`(
+	IN p_id_bodega INT
+)
+BEGIN
+	SELECT 
+		k.id_kardex, 
+		p.nombre, 
+		p.descripcion, 
+		k.cantidad, 
+		p.cantidad_paquete, 
+		p.nombre_medida, 
+		p.categoria, 
+		p.codigo,
+        k.estante,
+        k.fila,
+        p.id_producto
+    FROM 
+		kardex k, 
+		producto p 
+    WHERE 
+		k.id_producto_per = p.id_producto 
+        AND k.id_bodega_per = p_id_bodega ;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `traer_usuario_id` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -950,4 +1217,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-14 21:29:05
+-- Dump completed on 2025-06-05 17:14:18

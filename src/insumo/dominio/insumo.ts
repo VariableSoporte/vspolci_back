@@ -1,5 +1,5 @@
 import {
-    InsumoActivo,
+  InsumoActivo,
   InsumoCantidad,
   InsumoCategoria,
   InsumoCodigo,
@@ -48,7 +48,49 @@ export class Insumo {
       medida: this.medida.value,
       categoria: this.categoria.value,
       codigo: this.codigo.value,
-      activo: this.activo.value
+      activo: this.activo.value,
     };
+  }
+}
+
+export class InsumoKardex {
+  id_kardex: number;
+  id_producto_per: number;
+  nombre: string;
+  descripcion: string;
+  categoria: string;
+  cantidad: number;
+  estante: string;
+  fila: number;
+  constructor(
+    id_kardex: number,
+    id_producto_per: number,
+    nombre: string,
+    descripcion: string,
+    categoria: string,
+    cantidad: number,
+    estante: string,
+    fila: number
+  ){
+    this.id_kardex = id_kardex;
+    this.id_producto_per = id_producto_per;
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+    this.categoria = categoria;
+    this.cantidad = cantidad;
+    this.estante = estante;
+    this.fila = fila;
+  }
+  public datoPrimitivo (){
+    return {
+      id_kardex : this.id_kardex,
+      id_producto_per : this.id_producto_per,
+      nombre : this.nombre,
+      descripcion : this.descripcion,
+      categoria : this.categoria,
+      cantidad : this.cantidad,
+      estante : this.estante,
+      fila : this.fila,
+    }
   }
 }

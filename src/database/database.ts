@@ -12,7 +12,7 @@ const config: ConnectionOptions = {
     queueLimit: 0
 }
 
-const pool = mysql2.createPool(config);
+export const pool = mysql2.createPool(config);
 
 class DataBase {
     async query <T extends RowDataPacket[] | ResultSetHeader > ( sql: string, values: any = null){
