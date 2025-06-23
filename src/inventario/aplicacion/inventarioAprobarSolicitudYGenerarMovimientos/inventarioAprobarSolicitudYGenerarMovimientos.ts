@@ -24,7 +24,6 @@ export class InventarioAprobarSolicitudYGenerarMovimientos {
         productos
       );
     } catch (error) {
-      console.log("error real: ", error);
       throw new InventarioNoEncontradoError(
         `No se pudo enviar el Aprobar y generar movimientos`
       );
