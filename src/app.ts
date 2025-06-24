@@ -39,7 +39,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // Usar el middleware de errores al final
   app.use(errorHandler);
 
-app.listen(PORT, () => {
+app.listen(PORT,'0.0.0.0', () => {
   console.log(
     `Aplicacion de express esta corriendo en el puerto http://localhost:${PORT}`
   );
